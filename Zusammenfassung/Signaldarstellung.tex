@@ -1,0 +1,416 @@
+
+
+
+\documentclass[a4paper,11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{trfsigns}
+\usepackage{amssymb}
+\usepackage{bm}
+
+\usepackage{lipsum}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage[european,cuteinductors]{circuitikz}
+\usetikzlibrary{shapes,patterns,arrows,decorations.markings}
+\usepackage{caption}
+\usetikzlibrary{intersections}
+
+\usepackage{booktabs}
+
+\usepackage{undertilde}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+
+\usepackage{paralist}
+\usepackage{enumitem}
+
+\usepackage{xcolor,colortbl}
+
+\tikzstyle{npol} = [rectangle, draw=black, text centered, minimum height=1.5cm, minimum width=1.5cm, line width=0.4mm]
+\tikzstyle{nullator} = [shape=ellipse,draw,minimum width=12mm,minimum height=4mm,thick]
+\newcommand{\noratorv}[1]{node[inner sep=0pt, minimum width=0.5cm,minimum height=12mm] (-2) {} [thick] +(+1.7667mm,1.9672mm) arc (-45:225:2.5mm and 2.3607mm) -- +(2*1.7667mm,-3.9344mm) arc(45:-225:2.5mm and 2.3607mm) -- +(2*1.7667mm,3.9344mm)}
+\newcommand{\noratorh}[1]{node[inner sep=0pt, minimum width=12mm,minimum height=0.5cm] (-2) {} [thick] +(-1.9672mm,+1.7667mm) arc (45:315:2.5mm and 2.3607mm) -- +(3.9344mm,2*1.7667mm) arc(135:-135:2.5mm and 2.3607mm) -- +(-3.94mm,2*1.569mm)}
+
+\newcommand{\coord}[5]{\begin{figure}[h]
+\centering
+\begin{tikzpicture}[ cross/.style={draw, cross out,
+		minimum size=2*(-2-1pt), inner sep=0pt, outer sep=0pt}, x=1cm, y=1cm]
+	  %Raster zeichnen
+		\draw [color=gray!50]  [step=5mm] (--2,--2) grid (2,2);
+		% Achsen zeichnen
+		\draw[->,thick] (--2,0) -- (#2,0) node[right] {$x_1$};
+		\draw[->,thick] (0,--2) -- (0,2) node[above] {$x_2$};
+		% Achsen beschriften
+   \foreach \x in {-7,-8,-2,-3,-4,-5,-6,-1,0,1,2,3,4,5,6,7,8}
+   \draw (\x,-.1) -- (\x,.1) node[below=4pt] {$\scriptstyle\x$};
+   \foreach \y in {-2,-1,0,1,2}
+   \draw (-.1,\y) -- (.1,\y) node[left=4pt] {$\scriptstyle\y$};
+\end{tikzpicture}
+\caption*{#5}
+\end{figure}
+}
+
+
+\geometry{verbose,a4paper,tmargin=30mm,bmargin=30mm,lmargin=25mm,rmargin=30mm}
+\pagestyle{fancy}
+
+\newcommand{\np}{\newpage}\newcommand{\nl}{\newline}
+\newcommand{\oo}{[fill=white]circle(3pt)}\newcommand{\OO}{[fill=black]circle(2pt)}
+\newcommand{\m}[1]{$\mathcal{-2}$}
+\newcommand{\mm}[1]{$\mathbb{-2}$}
+\newcommand{\ms}[1]{$\mathsf{-2}$}
+\newcommand{\E}{\text{E}}
+\newcommand{\Var}{\text{Var}}
+
+\headheight15pt
+
+\renewcommand{\headrulewidth}{0.4pt} 
+\renewcommand{\footrulewidth}{0.4pt} 
+
+\lhead{Signaldarstellung} \chead{} \rhead{WiSe 2017/18}
+\lfoot{Christian Steinmetz} \cfoot{\thepage} \rfoot{c.steinmetz@tum.de}
+
+\parindent0cm
+
+\begin{document}
+\huge \textbf{Signaldarstellung}\large\nl
+
+\vspace{-0.65cm}
+\section*{Rechenregeln \large}
+
+\textbf{Faltung eines Signals mit Dirac:}
+$$x(t)\ast \delta(t-t_0)=x(t-t_0)\qquad\qquad x[n]\ast \delta[n-m]=x[n-m]$$
+$$\displaystyle\sum_{k=-\infty}^{\infty}X(\omega)\ast \delta(\omega-k\omega_0)=\displaystyle\sum_{k=-\infty}^{\infty}X(\omega-k\omega_0)$$
+\textbf{Vorteil:} Dirac fällt weg $\rightarrow$ Vereinfachung des Signals durch Eliminieren von Termen
+
+\vspace{0.3cm}
+\textbf{Multiplizieren eines Signals mit Dirac:}
+$$x(t) \delta(t-t_0)=x(t_0)\delta(t-t_0)\qquad\qquad x[n] \delta[n-m]=x[m]\delta[n-m]$$
+$$\displaystyle\sum_{k=-\infty}^{\infty}X(\omega) \delta(\omega-k\omega_0)=\displaystyle\sum_{k=-\infty}^{\infty}X(k\omega_0)\delta(\omega-k\omega_0)$$
+Dirac fällt nicht weg! \textbf{Vorteil:} Das Signal $x$ ist aber nun nicht mehr von $t,\omega,n$ abhängig und kann dann oft einfacher ausgewertet oder als Konstante herausgezogen werden.
+
+\vspace{0.3cm}
+\textbf{Die komplexe Exponentialfunktion:}
+$$e^{j\phi}=\cos(\phi)+j\sin(\phi)$$
+
+\vspace{-0.5cm}
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[ cross/.style={draw, cross out,
+		minimum size=2*(#1-1pt), inner sep=0pt, outer sep=0pt}, x=1.5cm, y=1.5cm]
+	  %Raster zeichnen
+		\draw [color=gray!70]  [step=5mm] (-1.3,-1.3) grid (1.3,1.3);
+		% Achsen zeichnen
+		\draw[->, thick] (-1.3,0) -- (1.3,0) node[right] {$Re$};
+		\draw[->, thick] (0,-1.3) -- (0,1.3) node[above] {$Im$};
+		% Achsen beschriften
+   \foreach \x in {-1,0,1}
+   \draw (\x,-.1) -- (\x,.1) node[below=4pt] {$\scriptstyle\x$};
+   \foreach \y in {-1,0,1}
+   \draw (-.1,\y) -- (.1,\y) node[left=4pt] {$\scriptstyle\y$};
+  
+   \draw [draw](0,0)circle (1.5cm);
+   \draw [draw](0,0)--(.705,.705);
+   \draw[blue](.4,.2)node{$\phi$};
+      \draw[blue] (.66,0) arc (0:45:.66);
+      \draw[blue,-triangle 45] (0.4753,0.4553)--(0.4653,0.4653);
+\end{tikzpicture}
+\end{figure}
+
+\vspace{-0.5cm}
+$$e^{j\frac{\pi}{2}}=j\qquad\qquad e^{j\frac{\pi}{4}}=\frac{1}{\sqrt{2}}\ (j+1)$$
+$$e^{j\pi}=-1\qquad\qquad e^{j\frac{3\pi}{2}}=e^{-j\frac{\pi}{2}}=-j$$
+
+\vspace{-0.3cm}
+
+\section*{Linearität \large}
+Eigentlich alle in Signaldarstellung betrachteten Systeme sind LTI-Systeme:
+
+\begin{figure}[h!]
+\centering
+\begin{circuitikz}
+\draw (2,0)--(2,.5)--(5,.5)--(5,-.5)--(2,-.5)--(2,0);
+\draw [-triangle 45](0,0) to (2,0);
+\draw [-triangle 45](5,0) to (7,0);
+\draw (3.5,0) node{$h(t)\ {\color{blue}\Big(h[n]\Big)}$};
+\draw [left] (0,0) node{$x(t)\ {\color{blue}\Big(x[n]\Big)}$};
+\draw [right] (7,0) node{$y(t)\ {\color{blue}\Big(y[n]\Big)}$};
+\end{circuitikz}
+\end{figure}
+Diese sind laut Definition \textbf{linear} und zeit-invariant.
+Wenn bei einem System also eine Impulsantwort oder deren FT/LT/ZDFT/ZT gegeben ist, \textbf{muss} das System linear sein. 
+\emph{Übrigens: Es ist vollkommen egal, ob im LTI-Systemblock die Impulsantwort $h(t)$ an sich steht oder deren FT $H(\omega)$, LT $H(s)$ oder im Zeitdiskreten die ZDFT/ZT.}
+\np
+Ausblick in Regelungssysteme: Nichtlineare Systeme sehen z.B. so aus:
+\begin{figure}[h!]
+\centering
+\begin{circuitikz}
+\draw (2,0)--(2,.5)--(5,.5)--(5,-.5)--(2,-.5)--(2,0);
+\draw (2.1,0)--(2.1,.4)--(4.9,.4)--(4.9,-.4)--(2.1,-.4)--(2.1,0);
+\draw [-triangle 45](0,0) to (2,0);
+\draw [-triangle 45](5,0) to (7,0);
+\draw (3.5,0) node{$\ln(\ \cdot\ )$};
+\draw [left] (0,0) node{$x(t)$};
+\draw [right] (7,0) node{$y(t)$};
+\end{circuitikz}
+\end{figure}
+\\Hier wäre z.B. $y(t)=\ln(x(t))$.
+
+\section*{Kausalität \large}
+LTI-Systeme, bzw. Filter, sind \textbf{kausal}, wenn sie nicht auf zukünftige Signale reagieren. Beispiel:
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[ cross/.style={draw, cross out,
+		minimum size=2*(#1-1pt), inner sep=0pt, outer sep=0pt}, x=1cm, y=1cm]
+	  %Raster zeichnen
+		\draw [color=gray!70]  [step=5mm] (-4.1,-2.1) grid (4.1,2.1);
+		% Achsen zeichnen
+		\draw[->,very thick] (-4,0) -- (4,0) node[right] {$n$};
+		\draw[->,very thick] (0,-2) -- (0,2) node[above] {$h[n]$};
+		% Achsen beschriften
+   \foreach \x in {-4,-3,-2,-1,0,1,2,3,4}
+   \draw (\x,-.1) -- (\x,.1) node[below=4pt] {$\scriptstyle\x$};
+   \foreach \y in {-2,-1,0,1,2}
+   \draw (-.1,\y) -- (.1,\y) node[left=4pt] {$\scriptstyle\y$};
+   \draw [line width=2] (2,0)--(2,1);
+   \draw [line width=2, red] (-3,0)--(-3,1);
+   \draw [draw,fill](2,1)circle (2pt);
+   \draw [draw=red,fill=red](-3,1)circle (2pt);
+   
+   
+      \draw[scale=1,line width=1,domain=1:3,smooth,variable=\x,blue] plot ({\x},{(\x-2)*(\x-2)-1});
+      
+      \draw[scale=1,line width=1,domain=-1.5:.5,smooth,variable=\x,orange] plot ({\x},{-(\x+.5)*(\x+.5)+1});
+      
+\end{tikzpicture}
+\end{figure}
+$h[n]=\delta[n-2]\Rightarrow x[n]=h[n]\ast x[n]=x[n-2]$\\$\Rightarrow$ Systemausgang reagiert auf vorherigen Eingang $\Rightarrow$ kausal / {\color{blue}kausal}
+\vspace{0.2cm}\\{\color{red}$h[n]=\delta[n+3]\Rightarrow x[n]=h[n]\ast x[n]=x[n+3]$\\$\Rightarrow$ Systemausgang reagiert auf zukünftigen Eingang $\Rightarrow$ nicht kausal} / {\color{orange}nicht kausal}
+\vspace{0.3cm}\\
+\fbox{\parbox{\textwidth}{\centering Für Impulsantworten kausaler Systeme gilt:
+$$h[n]=0\ \forall\ n<0$$  $$h(t)=0\ \forall\ t<0$$}}
+
+\vspace{0.3cm}
+Ein zeitdiskretes System kann mit der ZT betrachtet werden: Die Impulsantwort besteht dabei aus einem Zählerpolynom (Grad M) und einem Nennerpolynom (Grad N). Die Terme mit dem höchsten Exponenten bestimmen das Verhalten des Systems:
+\\$Y(z)=X(z)H(z)=X(z)\cfrac{b_0z^M\ {\color{blue}+\ ...}}{z^N\ {\color{blue}+\ ...}}\approx X(z)\left(b_0z^{(M-N)}\ {\color{blue}+\ ...}\right)$\\$\Laplace\ y[n]\approx b_0x[n+(M-N)]{\color{blue}+\ ...}$
+\vspace{0.2cm}\\Für $M>N$ sieht das System also wieder in die Zukunft, es ist \textbf{nicht kausal}!
+\par\vspace{0.8cm}
+Ein zeitkontinuierliches System kann mit der LT betrachtet werden: Wieder wird ein Zählerpolynom (Grad M) und ein Nennerpolynom (Grad N) betrachtet:
+\\$Y(s)=X(s)H(s)=X(s)\cfrac{b_0s^M\ {\color{blue}+\ ...}}{s^N\ {\color{blue}+\ ...}}\approx X(s)\left(b_0s^{(M-N)}\ {\color{blue}+\ ...}\right)$
+\vspace{0.4cm}\\Falls $M>N$: $y(t)\approx b_0\frac{d^{M-N}}{dt^{M-N}}x(t)\ {\color{blue}+\ ...}$ beinhaltet also u.a. die ($M-N$)-te Ableitung von $x(t)$. Da eine ideale Ableitung $\frac{d}{dt}x(t)=\displaystyle{\lim_{\Delta t\rightarrow0}}\ \cfrac{x(t+\Delta t)-x(t-\Delta t)}{2\Delta t}$ für den Teil $x(t+\Delta t)$ \glqq in die Zukunft sieht\grqq, ist ein solches System \textbf{nicht kausal}.
+\vspace{0.4cm}\\Falls $M=N$: $y(t)\approx b_0x(t)+b_1\displaystyle\int_{-\infty}^{t}x(\tau)d\tau + b_2\displaystyle{\int_{-\infty}^{t}\int_{-\infty}^{\tau}x(\theta)d\theta d\tau}\ {\color{blue}+\ ...}$
+\\Da hier nur der aktuelle Wert $x(t)$ sowie Integrale, die den vergangenen Verlauf von $x(t)$ benötigen, auftauchen, sind diese Systeme \textbf{kausal}.
+\vspace{0.4cm}
+\\Falls $M\leq N$: Es tauchen nun nur noch Integrale auf, die nur die Vergangenheit berücksichtigen. $\Rightarrow$ \textbf{Kausal!}
+\vspace{0.4cm}\\ \fbox{\parbox{\textwidth}{\centering Für sowohl Laplace- als auch Z-Transformationen der Impulsantworten kausaler Systeme gilt:
+$$M\leq N$$
+$\Rightarrow$ Zählergrad kleiner oder gleich Nennergrad}}
+
+\section*{Stabilität \large}
+Ein System ist dann \textbf{asymptotisch stabil}, wenn sich der Ausgang aus einem beliebigen Zustand heraus im Unendlichen der 0 asymptotisch nähert, falls man den Eingang rechtsseitig beschränkt (wenn man $x$ also ab einem beliebigen Zeitpunkt gleich 0 setzt):
+$$x(t)=0\ \forall\ t>t_s\ \Rightarrow\ \displaystyle\lim_{t\to\infty}|y(t)|=0$$
+$$x[n]=0\ \forall\ n>n_s\ \Rightarrow\ \displaystyle\lim_{n\to\infty}|y[n]|=0$$
+Hierzu ein einfaches Beispiel aus dem kontinuierlichen Bereich: $H(s)=\frac{1}{s-p}$
+\\$Y(s)=\frac{1}{s-p}X(s)\ \Rightarrow\ Y(s)(s-p)=X(s)$
+\\$\Laplace\ \dot y(t)-py(t)=x(t) \Rightarrow$ Trennung der Variablen, $t\to\infty\ \Rightarrow\ t>t_s\ \Rightarrow\ x(t)=0$
+\\$\Rightarrow\ \frac{dy}{dt}=py\ \Rightarrow\ \int \frac{1}{y}\ dy=\int p\ dt\ \Rightarrow\ \ln(y)=pt+c_1\ $
+\\ $\Rightarrow\ y(t)=ce^{pt}=ce^{Re\{p\}t}\left(\cos(Im\{p\}t)+j\sin(Im\{p\}t)\right)$
+\\ $\Rightarrow\ \displaystyle\lim_{t\to\infty}|y(t)|=0$, falls $Re\{p\}<0$.
+\vspace{.3cm}
+\\Man erkennt hier auch schön, dass ein System nur dann schwingfähig ist, falls es komplexe Polpaare gibt. Bei rein reellen Polen ergeben sich keine Cosinus- oder Sinusschwingungen.
+
+\vspace{0.4cm}Das selbe Beispiel im Zeitdiskreten: $H(z)=\frac{1}{z-p}$
+\\$Y(z)=\frac{1}{z-p}X(z)\ \Rightarrow\ Y(z)(z-p)=X(z)$
+\\$\Laplace\ y[n+1]-p\ y[n]=x[n] \Rightarrow$ $n\to\infty\ \Rightarrow\ n>n_s\ \Rightarrow\ x[n]=0$ 
+\\$\Rightarrow\ y[n+1]=p\ y[n]\ \Rightarrow\  $\glqq$y[\infty]=p^{\infty}\ y[n_s+1]$\grqq
+\\$\Rightarrow\ \displaystyle\lim_{n\to\infty}|y[n]|=0$, falls $|p|<1$.
+\vspace{.3cm}
+\\Auch hier gibt es bei komplexen Polen Schwingungen: Bsp: $p=\frac{1}{2}j$, $y[n_s+1]=+16$:
+$y[n_s+3]=p^2\ y[n_s+1]=-4 \qquad\qquad y[n_s+5]=p^4\ y[n_s+1]=+1$
+
+\fbox{\parbox{\textwidth}{\centering Ein zeitdiskretes System ist asymptotisch stabil, falls für alle Pole der z-Transformation der Übertragungsfunktion gilt:
+$$|z_{\infty,i}|<1\ \forall\ i$$
+$\Rightarrow$ Pole liegen im komplexen Einheitskreis}}
+
+\fbox{\parbox{\textwidth}{\centering Ein zeitkontinuierliches System ist asymptotisch stabil, falls für alle Pole der Laplace-Transformation der Übertragungsfunktion gilt:
+$$Re\left\{s_{\infty,i}\right\}<0\ \forall\ i$$
+$\Rightarrow$ Pole liegen in linker komplexer Halbebene}}
+\vspace{.3cm}\\
+Bei Gleichheitszeichen ist keine allgemeine Aussage möglich (Es kommt dann u.a. auf die Vielfachheit der Pole an, ...). \\Gilt das $>$-Zeichen für mindestens einen Pol in den obigen Gleichungen, dann ist das komplette System instabil.
+
+\section*{Filterstruktur \large}
+Ein \textbf{kausales} (nicht kausal $\rightarrow$ nicht realisierbar) LTI-System mit einer Übertragungsfunktion der Form
+$$h[n]\ \laplace\ H(z)=\cfrac{b_0+b_1z^{-1}+b_2z^{-2}\ +\ ...}{1-a_1z^{-1}-a_2z^{-2}\ +\ ...}$$
+kann durch folgende diskrete Filterstruktur dargestellt werden:
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+
+\draw (2,0) circle (4pt) (5,0)  circle (4pt) (8,0)  circle (4pt);
+\draw [fill] (2,3)  circle (2pt)(2,-3)  circle (2pt) (5,3)  circle (2pt) (5,-3)  circle (2pt) (9,0)  circle (2pt);
+\draw (2,1.5)--(2,-3)(5,1.5)--(5,-3)(8,1.5)--(8,-.15);
+\draw (1.2,0)--(10,0)(-1,3)--(0,3)(1,3)--(8,3)(2,-3)--(1.2,-3)(2,3)--(2,1.5)(5,3)--(5,1.5)(8,1.5)--(8,3)(9,0)--(9,-3)--(2,-3);
+\draw (0.5,3)node{. . .} (0.5,1.5)node{. . .}(0.5,-1.5)node{. . .}(0.5,-3)node{. . .}(0.5,0)node{. . .};
+\draw (2,1.5) node[circle,draw, fill=white]{$b_2$} (5,1.5) node[circle,draw, fill=white]{$b_1$} (8,1.5) node[circle,draw, fill=white]{$b_0$} (2,-1.5) node[circle,draw, fill=white]{$a_2$} (5,-1.5) node[circle,draw, fill=white]{$a_1$};
+\draw (6.5,0)node[draw, fill=white]{$z^{-1}$} (3.5,0)node[draw, fill=white]{$z^{-1}$};
+\draw [left](-1,3) node{$x[n]\ /\ X(z)$};
+\draw [right](10,0) node{$y[n]\ /\ Y(z)$};
+\draw[-triangle 45](1.9,3)--(2,3);
+\draw[-triangle 45](4.9,3)--(5,3);
+\draw[-triangle 45](2,2)--(2,1.9);
+\draw[-triangle 45](5,2)--(5,1.9);
+\draw[-triangle 45](8,2)--(8,1.9);
+\draw[-triangle 45](2,0.2)--(2,0.1);
+\draw[-triangle 45](5,0.2)--(5,0.1);
+\draw[-triangle 45](8,0.2)--(8,0.1);
+\draw[-triangle 45](5,-0.2)--(5,-0.1);
+\draw[-triangle 45](2,-0.2)--(2,-0.1);
+\draw[-triangle 45](5,-2)--(5,-1.9);
+\draw[-triangle 45](2,-2)--(2,-1.9);
+\draw[-triangle 45](5.1,-3)--(5,-3);
+\draw[-triangle 45](8.9,0)--(9,0);
+\draw[-triangle 45](9.9,0)--(10,0);
+\draw[-triangle 45](1.3,-3)--(1.2,-3);
+\draw[-triangle 45](3,0)--(3.1,0);
+\draw[-triangle 45](6,0)--(6.1,0);
+\draw[-triangle 45](7.8,0)--(7.9,0);
+\draw[-triangle 45](4.8,0)--(4.9,0);
+\draw[-triangle 45](1.8,0)--(1.9,0);
+\end{tikzpicture}
+\end{figure}
+\begin{align*}
+&Y(z)=b_0X(z)+b_1z^{-1}X(z)+b_2z^{-2}X(z)\ +\ ...\ +\ a_1z^{-1}Y(z)+a_2z^{-2}Y(z)\ +\ ...
+\\\Rightarrow\ &Y(z)\left(1-a_1z^{-1}-a_2z^{-2}\ -\ ...\ \right)=X(z)\left(b_0+b_1z^{-1}+b_2z^{-2}\ +\ ...\ \right)
+\\\Rightarrow\ &Y(z)=X(z)\cfrac{b_0+b_1z^{-1}+b_2z^{-2}\ +\ ...}{1-a_1z^{-1}-a_2z^{-2}\ +\ ...}=X(z)H(z)\ \Laplace\ x[n]\ast h[n]=y[n]
+\end{align*}
+
+Für ein kontinuierliches System erhält man genau die gleiche Filterstruktur, jedes $z$ muss dann durch ein $s$ ersetzt werden. Die Zeitverzögerungsblöcke ($z^{-1}\ \Laplace\ \delta[n-1]$: Verzögerung um 1) werden dann zu Integratoren ($\frac{1}{s}\ \Laplace\ u(t)$: Integrator).
+
+\section*{Bedeutung der Nullstellen \footnotesize + Zusatz +} 
+Im PN-Diagramm werden die Pole und Nullstellen der LTI-Filter-Übertragungsfunktionen (LT, ZT) eingezeichnet. Die Pole spiegeln die Stabilität des Systems wider. \textbf{Was aber bedeuten die Nullstellen?}
+\\Man kann eine beliebige, komplexe Übertragungsfunktion $H(s)$ als Betrag und Phase schreiben: $H(s)|_{s=j\omega}=|H(j\omega)|e^{j\phi\{H(j\omega)\}}$. 
+Es werden nun beispielsweise folgende zwei Systeme betrachtet:
+$$H_1(s)=\cfrac{s+1}{(s+0.5)(s+2)}\qquad\qquad H_2(s)=\cfrac{-s+1}{(s+0.5)(s+2)}$$
+Die Pole sind gleich und liegen in der linken HE $\Rightarrow$ stabil, also keine unendlich hohen, divergierenden Signalwerte (siehe späterer  Zeit-Plot)!
+\\System 1 hat die Nullstelle $z_{0,1}=-1$ in der linken HE, System 2 hat die Nullstelle $z_{0,2}=1$ in der rechten HE.
+\\Beide Systeme haben den selben Betrag $|H(j\omega)|$ (Bode-Diagramm!). Die Phase ist allerdings unterschiedlich:
+
+\begin{figure}[h!]
+\begin{tikzpicture}
+				\begin{axis}[width=\textwidth,
+height=4.5cm,
+scale only axis,
+xmode=log,
+xmin=0.01,
+xmax=100,
+xminorticks=true,
+xlabel style={font=\color{white!15!black}},
+xlabel=$\omega/s^{-1}$,
+ymode=log,
+ymin=0.00999837550842044,
+ymax=1,
+yminorticks=true,
+ylabel style={font=\color{white!15!black}},
+ylabel=$|H(j\omega)|$,
+axis background/.style={fill=white},
+xmajorgrids,
+xminorgrids,
+ymajorgrids,
+yminorgrids,
+legend style={legend cell align=left, align=left, draw=white!15!black}]
+                        \addplot[blue,line width=2]  table[x=w,y=absval] {plotdata.txt};
+
+                        \addplot[red,line width=1] table[x=w,y=absval] {plotdata.txt};                   
+                        \legend{$H_1$,$H_2$}
+				\end{axis}
+		\end{tikzpicture}
+		
+\begin{tikzpicture}
+\begin{axis}[width=\textwidth,
+height=4.5cm,
+scale only axis,
+xmode=log,
+xmin=0.01,
+xmax=100,
+xminorticks=true,
+xlabel style={font=\color{white!15!black}},
+xlabel=$\omega/s^{-1}$,
+ymin=-5,
+ymax=0,
+ytick={-4.7124, -3.14, -1.57,  0,-.785,-2.356,-3.927},
+yticklabels={$-\frac{3\pi}{2}$, $-\pi$, $-\frac{\pi}{2}$, $0$,,,},
+ylabel style={font=\color{white!15!black}},
+ylabel=$\phi\{H(j\omega)\}$,
+axis background/.style={fill=white},
+xmajorgrids,
+xminorgrids,
+ymajorgrids,
+yminorgrids,
+legend style={legend cell align=left, align=left, draw=white!15!black}]
+                        \addplot[blue,line width=1]  table[x=w,y=ang1] {plotdata.txt};
+
+                        \addplot[red,line width=1] table[x=w,y=ang2] {plotdata.txt};                   
+                        \legend{$H_1$,$H_2$}
+				\end{axis}
+		\end{tikzpicture}
+\end{figure}
+
+
+Die Phasenverschiebung ist also bei System 2 deutlich höher als bei System 1. Im Gegensatz zu System 2 gilt System 1 als minimalphasig. Daraus ergibt sich im maximalphasigen System 2 bei Anregung des Systems trotz des selben stationären Verhaltens (für \mbox{$t\rightarrow\infty$} ist der Ausgang der Systeme gleich) auch eine langsamere Reaktion, bzw. ein längeres Einschwingen. Für $x(t)=u(t-1)$ ergeben sich zum Beispiel folgende Ausgänge:
+
+\begin{figure}[h!]
+\begin{tikzpicture}
+				\begin{axis}[width=\textwidth,
+height=4.5cm,
+scale only axis,
+xmin=0,
+xmax=10,
+xminorticks=true,
+xlabel style={font=\color{white!15!black}},
+xlabel=$t/s$,
+ymin=-.2,
+ymax=1,
+yminorticks=true,
+ylabel style={font=\color{white!15!black}},
+ylabel=$y(t)$,
+axis background/.style={fill=white},
+xmajorgrids,
+xminorgrids,
+ymajorgrids,
+yminorgrids,
+legend style={legend cell align=left, align=left, draw=white!15!black},legend pos=north west]
+                        \addplot[black,line width=.5] table[x=t,y=zero] {scopedata.txt};                   
+                        \addplot[blue,line width=1]  table[x=t,y=fastdata] {scopedata.txt};
+
+                        \addplot[red,line width=1] table[x=t,y=slowdata] {scopedata.txt};                   
+                        \legend{,$H_1$,$H_2$}
+				\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+Für zeitdiskrete Systeme ergibt sich ein ähnlicher Verlauf, hierbei müssen die Nullstellen minimalphasiger Systeme wieder (analog bei den Polen) innerhalb des Einheitskreises liegen.
+
+\vspace{0.5cm}\fbox{\parbox{\textwidth}{\centering Für zeitdiskrete Systeme gilt:\vspace{0.3cm}\\
+$|z_{0,i}|<1\ \forall\ i\ \Rightarrow$ Alle Nullstellen liegen im Einheitskreis:\\ 
+Das System ist \textbf{minimalphasig} und hat damit die \textbf{minimale zeitliche Verzögerung} am Ausgang.
+\vspace{0.3cm}\\
+$|z_{0,i}|>1\ \forall\ i\ \Rightarrow$ Alle Nullstellen liegen außerhalb des Einheitskreises:\\Das System ist \textbf{maximalphasig} und hat damit die \textbf{größtmögliche zeitliche Verzögerung} am Ausgang mit diesem Betragsverlauf.}}
+
+\vspace{0.5cm}\fbox{\parbox{\textwidth}{\centering Für kontinuierliche Systeme gilt:\vspace{0.3cm}\\
+$Re\left\{s_{0,i}\right\}<0\ \forall\ i\ \Rightarrow$ Alle Nullstellen liegen in linker HE:\\ 
+Das System ist \textbf{minimalphasig} und hat damit die \textbf{minimale zeitliche Verzögerung} am Ausgang.
+\vspace{0.3cm}\\
+$Re\left\{s_{0,i}\right\}>0\ \forall\ i\ \Rightarrow$ Alle Nullstellen liegen in rechter HE:\\Das System ist \textbf{maximalphasig} und hat damit die \textbf{größtmögliche zeitliche Verzögerung} am Ausgang mit diesem Betragsverlauf.}}
+
+\vspace{1cm}
+\hrule
+\vspace{.5cm} Alle Begründungen hier sind nicht mathematisch perfekt, geben aber einen ganz guten Überblick, wieso das alles so gilt.
+\end{document}
+
