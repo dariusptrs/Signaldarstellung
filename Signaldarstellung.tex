@@ -12,97 +12,43 @@
 % ======================================================================
 
 % Dokumentklasse (Schriftgröße 6, DIN A4, Artikel)
-\documentclass[6pt,a4paper]{scrartcl}
-%\documentclass[4pt,a4paper]{scrartcl} %USE IN CASE OF EMERGENCY  geschafft! emergency not needed
-
-% Pakete laden
-\usepackage[utf8]{inputenc}		% Zeichenkodierung: UTF-8 (für Umlaute)   
-\usepackage[german]{babel}		% Deutsche Sprache
-\usepackage{multicol}			% ermöglicht Seitenspalten  
-\usepackage{booktabs}			% bessere Tabellenlinien
-\usepackage{enumitem}			% bessere Listen
-\usepackage{graphicx}			% Zum Bilder einfügen benötigt
-\usepackage{pbox}				%Intelligent parbox: \pbox{maximum width}{blabalbalb \\ blabal}
-\usepackage{../../packages//scientific}			% Eigenes Paket
-\usepackage{scrtime}
-\usepackage{parskip} 			%Verhindert das einrücken am Zeilenanfang
-\usepackage{titlesec}
-\usepackage{color}				% Ermöglicht farbigen Text
-\usepackage{tabularx}			% Tabellen mit Zeilenumbruch
-\usepackage{tikz}				% Alle möglichen Zeichnungen
+\documentclass[german]{latex4ei/latex4ei_sheet}
 
 
-% .:: Seitenlayout und Ränder
-% ======================================================================
-\usepackage{geometry}
-\geometry{a4paper,landscape, left=6mm,right=6mm, top=0mm, bottom=3mm,includeheadfoot} 
-
-
-% .:: Kopf- und Fußzeile
-% ======================================================================
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-
-   \fancyfoot[C]{von LaTeX4EI - Mail: \emph{info@latex4ei.de}}
-   \renewcommand{\headrulewidth}{0.0pt} %obere Linie ausblenden
-   \renewcommand{\footrulewidth}{0.1pt} %obere Linie ausblenden
-
-   \fancyfoot[R]{Stand: \today \ um \thistime \ Uhr \qquad \thepage}
-   \fancyfoot[L]{Homepage: www.latex4ei.de -- Fehler bitte \emph{sofort} melden.}
-	
-% Schriftart SANS für bessere Lesbarkeit bei kleiner Schrift
-\renewcommand{\familydefault}{\sfdefault} 
-% Array- und Tabellenabstände vergrößern
-\renewcommand{\arraystretch}{1.2}
-
-
+\usepackage{amsmath, amssymb, amsfonts}  % For mathematical symbols and environments
+\usepackage{mathtools}                   % Enhancements for amsmath
+\usepackage{tabularx}                    % For tables with flexible width
+\usepackage{graphicx}                    % For including graphics and scaling
+\usepackage{tikz}                        % For drawing vector graphics
+\usepackage{physics}                     % For derivatives, integrals, and bra-ket notation
+\usepackage{xcolor}                      % Color options for annotations
+\usepackage{cancel}                      % For canceling terms
+\usepackage{bm}                          % Bold math for vectors
+\usepackage{empheq}                      % Emphasized equations
 
 % Befehle Signaldarstellung:
-\DeclareMathOperator{\TransSymb}{\overline{\mathbf{T}}} % Transformationsoperator
 \newcommand{\Trans}[1]{\TransSymb\left\{#1\right\}}	% LTI-Transformation
 
+\renewcommand{\diff}{\mathop{}\!\mathrm{\vphantom( d}}
 
-
-% .:: Überschriften anpassen
-% ======================================================================
-
-%\titleformat{ command }[ shape ]{ format }{ label }{ sep }{ before-code }[ after-code ]
-\titleformat{\section}{\Large \bfseries}{\thesection .}{0.5em}{\color{purple}}[\color{purple} \hrule \hrule]
-\titleformat{\subsection}{\large \bfseries}{\thesubsection .}{0.3em}{}[ ]
-
-%\titlespacing{Überschriftart}{keine Ahnung}{Abstand oberhalb}{Abstand unterhalb}
-\titlespacing{\section}{0em}{1.0em}{0.1em}
-\titlespacing{\subsection}{0em}{0.2em}{-0.4em}
-\titlespacing{\subsubsection}{0em}{0em}{-0.5em}
-
-
+\title{Signaltheorie}
 
 % Dokumentbeginn
 % ======================================================================
 \begin{document}
 
 
-% Aufteilung in Spalten
-\vspace{-4mm}
-\begin{multicols}{4}
-	\vspace{-20mm}{
-	\parbox{2.3cm}{
-		\includegraphics[height=1.4cm]{./img/Logo.pdf}		
-	}
-	\parbox{4cm}{
-		\emph{\Huge{Signaldarstellung}}
-	}}
 % ---------------------------------------
 % | 		Signaldarstellung			|
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %=======================================================================
-
+\maketitle
 	%Erst skalieren um $\frac{1}{a}$, dann verschieben um $b$! Form: $a(t-b)$\\#
-	\emph{Hinweis:} Im Modul Signaldarstellung ist keine Formelsammlung im üblichen Sinn zugelassen. Deshalb ist dies nur eine Sammlung von Informationen, die auf den freien Seiten im Manuskript Platz finden können.
+	%\emph{Hinweis:} Im Modul Signaldarstellung ist keine Formelsammlung im üblichen Sinn zugelassen. Deshalb ist dies nur eine Sammlung von Informationen, die auf den freien Seiten im Manuskript Platz finden können.
 
 	\section{Additionstheoreme}
-		\subsection{sinh, cosh \quad $\cosh^2(x)  \bs - \sinh^2(x) = 1$}
+	\begin{sectionbox}
+		\subsection{sinh, cosh \quad $\cosh^2(x)  - \sinh^2(x) = 1$}
 			$\sinh x = \frac{1}{2}(e^x -e^{-x}) \qquad \quad \operatorname{arsinh}\ x:= \ln\left(x+\sqrt{x^2+1}\right) \\
 			\cosh x  = \frac{1}{2}(e^x +e^{-x}) \qquad \quad \operatorname{arcosh}\ x:= \ln\left(x+\sqrt{x^2-1}\right)$
 
@@ -112,7 +58,7 @@
 				$\sinh({\rm arcosh}(x)) = \sqrt{x^2 - 1}$ & $\int \cosh x \, dx = \sinh x + C $\\
 				$\cosh({\rm arsinh}(x)) = \sqrt{x^2 + 1}$ 	
 			\end{tabular}
-		\subsection{sin, cos \quad $\sin^2(x) \bs + \cos^2(x) = 1$}
+		\subsection{sin, cos \quad $\sin^2(x)  + \cos^2(x) = 1$}
 			$\begin{array}{c|c|c|c|c|c|c|c|c}
 				x & 0 & \pi / 6 & \pi / 4 & \pi / 3 & \pi / 2 & \pi & \frac{3}{2}\pi & 2 \pi \\ \hline
 				\sin & 0 & \frac{1}{2} & \frac{1}{\sqrt{2}} & \frac{\sqrt 3}{2} & 1 & 0 & -1 & 0 \\
@@ -129,8 +75,9 @@
 			\end{tabular}
 
 			$\sin x = \frac{1}{2\i} ( e^{\i x} - e^{- \i x})$ \qquad $\cos x = \frac{1}{2}( e^{\i x} + e^{- \i x})$
-	
+	\end{sectionbox}
 	\section{Signaldarstellung}
+	\begin{sectionbox}
 	% Login: sd convolution
 	\subsection{Signale \& Systeme}
 	Allgemeine Form: $x_i(t) = \underbrace{g}_{\textcircled{3}} \cdot [x(\underbrace{s}_{\textcircled{2}} \cdot t + \underbrace{v}_{\textcircled{1}})] + \underbrace{r}_{\textcircled{4}}$
@@ -140,19 +87,20 @@
 		\item \textcircled{3}: Gewichtung $\updownarrow$
 		\item \textcircled{4}: Verschiebung $\downarrow\uparrow$
 	\end{itemize}
-%	$x(t) \ra x(t - 1)$ Verschiebung um $1$ in $x$-Richtung \\
-%	$x(t) \ra x(2 t)$ Stauchung um $2$ in $x$-Richtung \\
-%	$x(t) \ra x(-t)$ Spiegelung an der $y$-Achse
-%	Linearität (L): $a x_1(t) + b x_2(t) \ra a y_1(t) + b y_2(t)$ \\
-%	Zeitinvarianz (TI): $x(t - t_0) \ra y (t-t_0)$
-	
+%	$x(t) \rightarrow x(t - 1)$ Verschiebung um $1$ in $x$-Richtung \\
+%	$x(t) \rightarrow x(2 t)$ Stauchung um $2$ in $x$-Richtung \\
+%	$x(t) \rightarrow x(-t)$ Spiegelung an der $y$-Achse
+%	Linearität (L): $a x_1(t) + b x_2(t) \rightarrow a y_1(t) + b y_2(t)$ \\
+%	Zeitinvarianz (TI): $x(t - t_0) \rightarrow y (t-t_0)$
+	\end{sectionbox}
 	\subsection{Analytische Darstellung, Stochastische Darstellung}
+	\begin{sectionbox}
 	Zeitkontinuierliches Signal $x(t)$ und diskretes Signal $x[n]$\\
 	
 %	\emph{Abtastung}\\
-%	$\ra$ S. 10
-%	$x(t) \stackrel{\text{jede} T_S}{\ra} x[t] \stackrel{\text{mit} n = \frac{t}{T_S}}{\ra} x[n]$\\
-%	$\Ra x[n] = \sum\limits_{n = -\Delta}^\Delta x(t) \cdot \delta[t - n T_s]$\\
+%	$\rightarrow$ S. 10
+%	$x(t) \stackrel{\text{jede} T_S}{\rightarrow} x[t] \stackrel{\text{mit} n = \frac{t}{T_S}}{\rightarrow} x[n]$\\
+%	$\Rightarrow x[n] = \sum\limits_{n = -\Delta}^\Delta x(t) \cdot \delta[t - n T_s]$\\
 %	$T_S$: Abtastweite
 	\subsubsection{Besondere Grundfunktionen}
 	\emph{Einheitsimpuls} $\delta[n - n_0] = \begin{cases}
@@ -184,15 +132,16 @@
 %	
 %	Sprungfunktion: $\delta_\varepsilon(t-t_0)$\\
 %	Einheizsprung: $\heavi(t-t_0)$\\
-	
+	\end{sectionbox}
 	\subsection{LTI-Systeme}
+	\begin{sectionbox}
 	Alle Angaben gelten gleichermaßen für zeitdiskrete Signale.\\
 	i. Allg. lin. DGL: $a_0 y + a_1 \dot{y} + a_2 \ddot{y} + \dots = b_0 x + b_1 \dot{x} + b_2 \ddot{x} + \dots$
-	\[\boxed{y(t) = \Trans{x(t)}}\]
+	\boxed{y(t) = T\{x(t)\}}
 	\begin{tabular}{@{}lll}
 		& Input & Output\\
-		\emph{linear} & $a x_1(t) + b x_2(t)$ & $\Ra a y_1(t) + b y_2(t)$\\
-		\emph{zeitinvariant} & $x(t-t_0)$ & $\Ra y(t-t_0)$\\
+		\emph{linear} & $a x_1(t) + b x_2(t)$ & $\Rightarrow a y_1(t) + b y_2(t)$\\
+		\emph{zeitinvariant} & $x(t-t_0)$ & $\Rightarrow y(t-t_0)$\\
 	\end{tabular}
 	
 	Sprungantwort $s(t)$ auf $x(t) = u(t)$\\
@@ -213,15 +162,16 @@
 			\text{links von }t: t - \cdots\\
 		\end{cases}$
 		\item Folie über \textcircled{1} schieben
-		\item Keine Überlappung $\Ra y = 0$
+		\item Keine Überlappung $\Rightarrow y = 0$
 		\item Integration in stetige Bereiche aufteilen
 		\item Grenzen bestimmen
 		\item \textcircled{1} abschnittsweise analytisch beschreiben
 		\item \textcircled{2} abschnittsweise analytisch beschreiben
 		\item Teilintegrale lösen
 	\end{enumerate}
-	
+	\end{sectionbox}
 	\subsection{Faltung von Funktionen}
+	\begin{sectionbox}
 	\boxed{\begin{tabular}{ll} 
 	Kontinuierlich: & $(f*g)(x) = \int\limits_{-\infty}^{\infty} f(\tau) g(t-\tau) \diff \tau$\\[0.5em]
 	Diskret: & $(f*g)[n] = \sum\limits_{k = -\infty}^{\infty} {f[k] g[n-k]}$\\
@@ -330,7 +280,7 @@
 %	
 	
 	\subsection{Korrelation (Ähnlichkeit) zweier Signale}
-	$\ra$ S. 22
+	$\rightarrow$ S. 22
 %	\begin{tabular}{ll} 
 %	Kontinuierlich: & $\varphi_{\mu\nu} (t) = \int\limits_{-\infty}^{\infty} x_\mu(\tau) x_\nu(t+\tau) \diff \tau$\\[0.5em]
 %	Diskret: & $\varphi_{\mu\nu}[n] = \sum\limits_{k \in D} x_\mu[k] x_\nu[n+k]$\\
@@ -338,7 +288,7 @@
 
 	\subsection{Pegelrechnung}
 	Signale im logarithmischen Maßstab.\\
-	$\ra$ S. 23
+	$\rightarrow$ S. 23
 %	\begin{tabular}{ll}
 %		Spannnungspegel & Leistungspegel\\ \mrule
 %		$L_{\si{dB}} = 20 \log\left(\frac{|x(t)|}{|x_0(t)|} \right) \si{dB}$ & $=10 \log\left(\frac{|x(t)|^2}{|x_0(t)|^2} \right)$\\ 
@@ -350,7 +300,7 @@
 %	Wie stark die einzelnen Schwingung beitragen wird durch die komplexen Furierkoeffizienten $c_k = a_k + \i b_k$ festgelegt.\\
 %	$c_0$ ist die Grundamplitude, $c_1 = a_1$ entspricht $a_1 \cos(1 \cdot \omega_0 t )$ und $c_2 = \i b_2$ bedeutet $b_2 \sin(2 \cdot \omega_0 t )$\\
 %	Angenäherte Funktion $\tilde x = \sum_k c_k e^{\i k \omega t}$\\
-%	Fouriertransformation entspricht dem Grenzfall $\omega_0 \ra 0$ der Fourierreihe, es sind also beliebige Frequenzen möglich.\\
+%	Fouriertransformation entspricht dem Grenzfall $\omega_0 \rightarrow 0$ der Fourierreihe, es sind also beliebige Frequenzen möglich.\\
 %	
 %	Mittlere Signalleistung $P_x = \frac{1}{T} ... = |c_0|^2 + 2 \sum\limits_{i = 1}^\infty |c_i|^2$
 %	
@@ -372,7 +322,9 @@
 %		Amplitudenspektrum $|X(\omega)|$ von $x(t) \in \Re$ ist gerade!\\
 %		Phasensprünge um $\pi$ im Spektrum $X(\omega)$ weisen auf Vorzeichenwechsel im ? hin!\\
 %
+\end{sectionbox}
 	\section{Fourier-Reihe}
+	\begin{sectionbox}
 	Approximation einer periodischen Funktion $x(t)$ durch Grund- und Oberschwingungen von Cosinus und Sinus.
 		\subsection*{Definitionen}
 		$x(t)$ \emph{periodisch} und in $T_0$ bis auf \emph{endlich viele Sprungstellen} stetig:
@@ -397,39 +349,42 @@
 		\subsection*{Parsevalsches Theorem}
 		Mittlere Signalleistung:\\
 		$\overline{P} = \frac{1}{T_0}\int\limits_{T_0}{\abs{\tilde{x}(t)}^2 \diff t} = \sum\limits_{k = -\infty}^{\infty}{\abs{c_k}^2} = \abs{c_0}^2 + 2 \sum\limits_{k = 1}^{\infty}{\abs{c_k}^2}$\\
-		Weitere Definitionen $\ra$ S. 27
+		Weitere Definitionen $\rightarrow$ S. 27
 		
 		\subsection*{Konvergenz und Abweichung}
-		$\ra$ S. 29
+		$\rightarrow$ S. 29
 		
 		\subsection*{Zeitverschiebung}
 		$\tilde{x}(t - \tau) = \sum\limits_{k = -\infty}^{\infty}{c_k e^{j k \omega_0 (t - \tau)}} = \sum\limits_{k = -\infty}^{\infty}{c_k(\tau) e^{j k \omega_0 t}}$\\
 		$c_k(\tau) = c_k \cdot e^{-j k \omega_0 \tau}$
 		
 		\subsection*{Periodische Faltung}
-		$\ra$ S. 30
+		$\rightarrow$ S. 30
 		
 		\subsection*{Symmetrien}
 		\begin{tabularx}{\linewidth}{p{1.5cm}X}
-			achsensym. & $\Ra x\left(\frac{T_0}{2} + t\right) = x\left(\frac{T_0}{2} - t\right)$ \newline $a_0 = \frac{2}{T_0} \int_{\frac{T_0}{2}}{x(t) \diff t} \quad b_k = 0 \forall k$ \newline $a_k = \frac{4}{T_0} \int_{\frac{T_0}{2}}{x(t) \cos{(k \omega_0 t)} \diff t}$ \\
-			punktsym. & $\Ra x\left(\frac{T_0}{2} + t\right) = -x\left(\frac{T_0}{2} - t\right)$ \newline $a_k = 0 \forall k$ \newline $b_k = \frac{4}{T_0} \int_{\frac{T_0}{2}}{x(t) \sin{(k \omega_0 t)} \diff t}$ \\
-			Halbwelle & $\Ra x(t) = -x\left(t + \frac{T_0}{2}\right)$ \newline $a_k = \frac{4}{T_0} \int_{\frac{T_0}{2}}{x(t) \cos{(k \omega_0 t)} \diff t}$ \newline $b_k = \frac{4}{T_0} \int_{\frac{T_0}{2}}{x(t) \sin{(k \omega_0 t)} \diff t}$ \newline $k = 1,3,5,\dots$ \newline $a_k = b_k = 0 \text{ sonst}$ \\
+			achsensym. & $\Rightarrow x\left(\frac{T_0}{2} + t\right) = x\left(\frac{T_0}{2} - t\right)$ \newline $a_0 = \frac{2}{T_0} \int_{\frac{T_0}{2}}{x(t) \diff t} \quad b_k = 0 \forall k$ \newline $a_k = \frac{4}{T_0} \int_{\frac{T_0}{2}}{x(t) \cos{(k \omega_0 t)} \diff t}$ \\
+			punktsym. & $\Rightarrow x\left(\frac{T_0}{2} + t\right) = -x\left(\frac{T_0}{2} - t\right)$ \newline $a_k = 0 \forall k$ \newline $b_k = \frac{4}{T_0} \int_{\frac{T_0}{2}}{x(t) \sin{(k \omega_0 t)} \diff t}$ \\
+			Halbwelle & $\Rightarrow x(t) = -x\left(t + \frac{T_0}{2}\right)$ \newline $a_k = \frac{4}{T_0} \int_{\frac{T_0}{2}}{x(t) \cos{(k \omega_0 t)} \diff t}$ \newline $b_k = \frac{4}{T_0} \int_{\frac{T_0}{2}}{x(t) \sin{(k \omega_0 t)} \diff t}$ \newline $k = 1,3,5,\dots$ \newline $a_k = b_k = 0 \text{ sonst}$ \\
 		\end{tabularx}
-
-	\section{Fouriertransformation $x(t) \ra X(\omega)$}
+	\end{sectionbox}
+	\begin{minipage}{\columnwidth}
+	\section{Fouriertransformation $x(t)
+		 \rightarrow X(\omega)$}
+		 	\begin{sectionbox}
 	Darstellung von beliebigem Signal $x(t)$ im Spektralbereich\\
-	$x(t)$ bis auf \emph{endlich viele Sprungstellen} stetig und $\int_{-\infty}^{\infty}{\abs{x(t)} \diff t} < \infty \Ra x(t) \fourier X(\omega)$:\\
+	$x(t)$ bis auf \emph{endlich viele Sprungstellen} stetig und $\int_{-\infty}^{\infty}{\abs{x(t)} \diff t} < \infty \Rightarrow x(t) \FT X(\omega)$:\\
 	$\boxed{
 		x(t) = \frac{1}{2 \pi}\int\limits_{-\infty}^{\infty}{X(\omega) e^{j \omega t} \diff \omega}
 	}$ \hfill Synthese\\
 	$\boxed{
 		X(\omega) = \int\limits_{-\infty}^{\infty}{x(t) e^{-j \omega t} \diff t}
 	}$ \hfill Analyse
-%		$f \ra F$ mit Zeitfunktion $f:\R \ra \C$ und Frequenzfkt./Spektralfkt $F$\\
-%		Es muss gelten: $\lim\limits_{t \ra \pm \infty} f(t) = 0$ \quad $f$ fourtransbar, falls \\
+%		$f \rightarrow F$ mit Zeitfunktion $f:\R \rightarrow \C$ und Frequenzfkt./Spektralfkt $F$\\
+%		Es muss gelten: $\lim\limits_{t \rightarrow \pm \infty} f(t) = 0$ \quad $f$ fourtransbar, falls \\
 %		\boxed{ F(\omega) := \int\limits_{-\infty}^\infty f(t) \exp(-\i \omega t) \diff t} \\
 		
-		\subsection*{Parsevalsches Theorem $\ra$ S. 31}
+		\subsection*{Parsevalsches Theorem $\rightarrow$ S. 31}
 		Energie: $E_x = \int\limits_{-\infty}^{\infty}{\abs{x(t)}^2 \diff t} = \frac{1}{2 \pi}\int\limits_{-\infty}^{\infty}{\abs{X(\omega)}^2 \diff \omega}$
 		
 		\subsection*{Polarkoordinatendarstellung}
@@ -438,30 +393,30 @@
 		\subsection*{Spaltfunktion $\si(x)$}
 		$si(x) = \frac{\sin{(x)}}{x}$ mit\\
 		$\int\limits_{-\infty}^{\infty}{si(x) \diff x} = \pi$ \hfill $\int\limits_{0}^{\infty}{si(x) \diff x} = \frac{\pi}{2}$\\
-		$si(0) = \lim\limits_{x \ra 0}{si(x)} = 1$ \hfill $\lim\limits_{A \ra \infty}{A si(A x)} = \pi \delta(x)$
+		$si(0) = \lim\limits_{x \rightarrow 0}{si(x)} = 1$ \hfill $\lim\limits_{A \rightarrow \infty}{A si(A x)} = \pi \delta(x)$
 		
 		\subsection*{Zusammenhang FR $\rightleftarrows$ FT}
 		$x(t) = \begin{cases}
 			\tilde{x}(t) & \text{für } t \in \{T_0\}\\
 			0 & \text{für } t \notin \{T_0\}\\
 		\end{cases}$, wobei $\tilde{x}(t + r T_0) = \tilde{x}(t)$ mit $r \in \Z$\\
-		$\Ra \boxed{
+		$\Rightarrow \boxed{
 			c_k = \frac{1}{T_0} X(k \omega_0) \text{ oder } T_0 c_k = X(k \omega_0)	
 		}$
 		
 		\subsection*{Eigenschaften der FT}
 		Symmetrie, Verschiebung, Faltung, etc.\\
-		$\ra$ S. 40
+		$\rightarrow$ S. 40
 		
 			\subsubsection*{Amplitudenmodulation}
-			$\ra$ S. 45 -- 49
+			$\rightarrow$ S. 45 -- 49
 			
 			\subsubsection*{Vertauschungssatz}
-			$x_t(t) \fourier X_{\omega}(\omega)$\\
-			$\frac{1}{2 \pi} X_{\omega}(t) \fourier x_t(-\omega)$
+			$x_t(t) \FT X_{\omega}(\omega)$\\
+			$\frac{1}{2 \pi} X_{\omega}(t) \FT x_t(-\omega)$
 			
 		\subsection*{Wichtige FT-Paare}
-		$\ra$ S. 44
+		$\rightarrow$ S. 44
 
 %	Wichtige Fouriertransformationen:\\
 %	\begin{tabular}{r l|r l}
@@ -476,26 +431,29 @@
 %	Das Parsevalsches Theorem für periodische Signale:\\
 %	$E = \int\limits_{-\infty}^\infty |x(t)|^2 \diff t = \frac{1}{2\pi} \int\limits_{-\infty}^\infty |X(\omega)|^2 \diff \omega$\\
 %	
-%	Achsensymmetrie: $X(-\omega) = X^*(\omega) \Ra |X(-\omega)| = |X(\omega)|$\\
+%	Achsensymmetrie: $X(-\omega) = X^*(\omega) \Rightarrow |X(-\omega)| = |X(\omega)|$\\
 %	
 	\subsection*{Die Inverse Fouriertransformation}
 	$f(t) = \frac{1}{2\pi} \int\limits_{-\infty}^\infty F(\omega) \exp(\i \omega t) \diff \omega$\\
 	$\begin{cases} f(t) & ,f\ \text{ stetig in }t \\ \frac{f(t^-) + f(t^+)}{2} & ,\text{falls } f\text{ unstetig in }t \end{cases}$
 	
 	\subsection*{Übertragungsfunktion}
-	$\boxed{y(t) = h(t) \ast x(t) \stackrel{\mathcal{F}}{\longleftrightarrow} Y(\omega) = H(\omega) X(\omega)} \Ra$\\
+	$\boxed{y(t) = h(t) \ast x(t) \stackrel{\mathcal{F}}{\longleftrightarrow} Y(\omega) = H(\omega) X(\omega)} \Rightarrow$\\
 	Wenn System stabil:	$\boxed{H(\omega) = \frac{Y(\omega)}{X(\omega)}}$\\
 	Mit DGL N-ter Ordnung und mit konstanten Koeffizienten
 	\[\sum\limits_{l = 0}^{N}{a_l \frac{\diff^l}{\diff t^l} y(t)} = \sum\limits_{m = 0}^{M}{b_m \frac{\diff^m}{\diff t^m} x(t)}\]
-	\[\Ra \boxed{H(\omega) = \frac{Y(\omega)}{X(\omega)} = \frac{\sum\limits_{m = 0}^{M}{(j\omega)^m b_m}}{\sum\limits_{l = 0}^{N}{(j\omega)^l a_l}}}\]
-	\emph{Begründung:} $\ra$ S. 53\\
-	\emph{Darstellung in Bode-Diagramm:} Beispiel $\ra$ S.54 -- 55\\
-	\emph{Begriffe der Filtertechnik:} $\ra$ S.51 -- 52
+	\[\Rightarrow \boxed{H(\omega) = \frac{Y(\omega)}{X(\omega)} = \frac{\sum\limits_{m = 0}^{M}{(j\omega)^m b_m}}{\sum\limits_{l = 0}^{N}{(j\omega)^l a_l}}}\]
+	\emph{Begründung:} $\rightarrow$ S. 53\\
+	\emph{Darstellung in Bode-Diagramm:} Beispiel $\rightarrow$ S.54 -- 55\\
+	\emph{Begriffe der Filtertechnik:} $\rightarrow$ S.51 -- 52
 %	\\
 %	Rampe: $t \cdot \theta(t)$ und Rampenantwort\\
+\end{sectionbox}
+\end{minipage}
 	
 % ==============================================================================================================
 \section{Zeitdiskrete Fourier-Transformation ZDFT}
+\begin{sectionbox}
 % ==============================================================================================================
 Zeitnormierung: $n = \frac{t}{T_s}$ und Frequenznormierung: $\Omega = \omega T_s$
 \begin{itemize}
@@ -508,44 +466,47 @@ $\boxed{x[n] = \frac{1}{2 \pi}\int\limits_{\bs{2 \pi}}{X(\Omega) e^{\j \Omega n}
 $\boxed{X(\Omega) = \sum\limits_{n = -\infty}^{\infty}{x[n] e^{-\j \Omega n}}}$ \hfill Analyse\\
 Es gilt: $\ul{X(\Omega) = X(\Omega + 2 \pi)}$
 
-	\subsection*{Parsevalsches Theorem $\ra$ S. 58}
+	\subsection*{Parsevalsches Theorem $\rightarrow$ S. 58}
 	Energie: $E_x = \sum\limits_{n = -\infty}^{\infty}{\abs{x[n]}^2} = \frac{1}{2 \pi}\int\limits_{2 \pi}{\abs{X(\Omega)}^2 \diff \Omega}$
 	
 	\subsection*{Eigenschaften der ZDFT}
 	Symmetrie, Verschiebung, Faltung, etc.\\
-	$\ra$ S. 60
+	$\rightarrow$ S. 60
 	
 	\subsection*{Wichtige ZDFT-Paare}
-	$\ra$ S. 62
+	$\rightarrow$ S. 62
 	
 	\subsection*{Übertragungsfunktion der ZDFT}
 	$y[n] = x[n] \ast h[n] \stackrel{\mathcal{F}}{\longleftrightarrow} Y(\Omega) = H(\Omega) X(\Omega)$\\
-	Wenn System stabil: $\Ra \boxed{H(\Omega) = \frac{Y(\Omega)}{X(\Omega)}}$\\
+	Wenn System stabil: $\Rightarrow \boxed{H(\Omega) = \frac{Y(\Omega)}{X(\Omega)}}$\\
 	Mit linearer Differenzengleichung N-ter Ordnung:
 	\[\sum\limits_{l=0}^{N}{a_l y[n - l]} = \sum\limits_{m = 0}^{M}{b_m x[n - m]}\]
-	\[\Ra \boxed{H(\Omega) = \frac{Y(\Omega)}{X(\Omega)} = \frac{\sum\limits_{l=0}^{M}{b_l e^{-\j\Omega l}}}{\sum\limits_{l=0}^{N}{a_l e^{-\j\Omega l}}}}\]
-	\emph{Begründung} $\ra$ S. 67
+	\[\Rightarrow \boxed{H(\Omega) = \frac{Y(\Omega)}{X(\Omega)} = \frac{\sum\limits_{l=0}^{M}{b_l e^{-\j\Omega l}}}{\sum\limits_{l=0}^{N}{a_l e^{-\j\Omega l}}}}\]
+	\emph{Begründung} $\rightarrow$ S. 67
 	
+	\end{sectionbox}
 % ==============================================================================================================
 \section{Signalabtastung und -rückgewinnung}
+\begin{sectionbox}
 % ==============================================================================================================
 	\subsection{Abtasttheorem im Zeitbereich}
 	Bedingungen für eindeutige Signalrekonstruktion\\
 	\emph{Abtastvorgang:} \underline{$x_s(t) = x(t) s(t)$}: Abtastsignal $x_s(t)$ entsteht durch Modulation von $x(t)$ mit Dirac-Impuls-Folge $s(t)$.\\
 	$s(t) = \sum\limits_{n=-\infty}^{\infty}{\delta(t - n T_s)}$\\
-	$\Ra x_s(t) = x(t) s(t) = \sum\limits_{n=-\infty}^{\infty}{x(n T_s) \delta(t - n T_s)}$\\
+	$\Rightarrow x_s(t) = x(t) s(t) = \sum\limits_{n=-\infty}^{\infty}{x(n T_s) \delta(t - n T_s)}$\\
 	\emph{Zeitnormierung:} $t = n T_s$ mit Abtastperiode $T_s$ und Abtastfrequenz $\omega_s = \frac{2 \pi}{T_s}$\\
 	\emph{Übergang zum Frequenzbereich:} $S(\omega) = \frac{2 \pi}{T_s} \sum\limits_{r=-\infty}^{\infty}{\delta(\omega
 	 - r \omega_s)}$\\
-	$\Ra X_s(\omega) = \frac{1}{2 \pi} X(\omega) \ast S(\omega) = \frac{1}{T_s} \sum\limits_{r=-\infty}^{\infty}{X(\omega - r \omega_s)}$
+	$\Rightarrow X_s(\omega) = \frac{1}{2 \pi} X(\omega) \ast S(\omega) = \frac{1}{T_s} \sum\limits_{r=-\infty}^{\infty}{X(\omega - r \omega_s)}$
 	\begin{align}
 		\omega_s = \frac{2 \pi}{T_s} \geq 2 \omega_g\\
 		T_s \leq \frac{\pi}{\omega_g}\\
 		x(t) \text{ ist bandbegrenzt}
 	\end{align}
-
+\end{sectionbox}
 % ==============================================================================================================		
 \section{Laplacetransformation \quad $\mathcal L\bigl(f(t)\bigr) = F(s)$}
+\begin{sectionbox}
 % ==============================================================================================================	
 	$f(t) \laplace F(s) := \int\limits_0^\infty f(t) \exp(-st) \diff t$\\
 	\\
@@ -573,7 +534,7 @@ Es gilt: $\ul{X(\Omega) = X(\Omega + 2 \pi)}$
 	Inverse: $f(t) = \frac{1}{2\pi \i} \int\limits_{\gamma - \i \infty}^{-\gamma + \i \infty} F(s) \exp(st) \diff s$\\
 	Es gibt eine eineindeutige Korespondens zwischen den Originalfkt und Bildfkt.
 	Meist Nennergrad $>$ Zählergrad: Bruch geschickt umformen!
-	%Bsp: $F(s) = \frac{1}{(s+2)^2} \Ra f(t) = te^{-2t}$\\
+	%Bsp: $F(s) = \frac{1}{(s+2)^2} \Rightarrow f(t) = te^{-2t}$\\
 	%$F(s) = \frac{1-s}{s^2+2s+2} = \frac{1-s}{(s+1)^2 + 1} = \frac{2}{(s+1)^2 + 1} - \frac{s+1}{(s+1)^2 + 1} \laplace$
 	%Faltung: $(f * g)(t) = \int\limits_{-\infty}^\infty f(t-\tau) \cdot g(\tau) \diff \tau$\\
 	Laplacetransformierte als Summe nie auf gemeinsamen Nenner bringen!!
@@ -581,9 +542,7 @@ Es gilt: $\ul{X(\Omega) = X(\Omega + 2 \pi)}$
 
 	\subsection{Pol-Nullstellendiagramm}
 	Konvergenz bei $\sigma > \sigma_0$ mit $\sigma_0 = \max$ Polstelle.\\
-
-% Ende der Spalten
-\end{multicols}
+\end{sectionbox}
 
 % Dokumentende
 % ======================================================================
