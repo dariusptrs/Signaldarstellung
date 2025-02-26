@@ -11,7 +11,7 @@
 % Dokumenteinstellungen
 % ======================================================================
 
-% Dokumentklasse (Schriftgröße 6, DIN A4, Artikel)
+% Dokumentklasse
 \documentclass[german]{latex4ei/latex4ei_sheet}
 
 
@@ -25,11 +25,14 @@
 \usepackage{cancel}                      % For canceling terms
 \usepackage{bm}                          % Bold math for vectors
 \usepackage{empheq}                      % Emphasized equations
+\usepackage{trsym,trfsigns}
 
 % Befehle Signaldarstellung:
 \newcommand{\Trans}[1]{\TransSymb\left\{#1\right\}}	% LTI-Transformation
 
 \renewcommand{\diff}{\mathop{}\!\mathrm{\vphantom( d}}
+
+\renewcommand{\laplace}{\Laplace}
 
 \title{Signaltheorie}
 
@@ -352,7 +355,7 @@
 		Weitere Definitionen $\rightarrow$ S. 27
 		
 		\subsection*{Konvergenz und Abweichung}
-		$\rightarrow$ S. 29
+		$\rightarrow$ S. 30
 		
 		\subsection*{Zeitverschiebung}
 		$\tilde{x}(t - \tau) = \sum\limits_{k = -\infty}^{\infty}{c_k e^{j k \omega_0 (t - \tau)}} = \sum\limits_{k = -\infty}^{\infty}{c_k(\tau) e^{j k \omega_0 t}}$\\
@@ -406,17 +409,17 @@
 		
 		\subsection*{Eigenschaften der FT}
 		Symmetrie, Verschiebung, Faltung, etc.\\
-		$\rightarrow$ S. 40
+		$\rightarrow$ S. 39
 		
 			\subsubsection*{Amplitudenmodulation}
-			$\rightarrow$ S. 45 -- 49
+			$\rightarrow$ S. 41
 			
 			\subsubsection*{Vertauschungssatz}
 			$x_t(t) \FT X_{\omega}(\omega)$\\
 			$\frac{1}{2 \pi} X_{\omega}(t) \FT x_t(-\omega)$
 			
 		\subsection*{Wichtige FT-Paare}
-		$\rightarrow$ S. 44
+		$\rightarrow$ S. 43
 
 %	Wichtige Fouriertransformationen:\\
 %	\begin{tabular}{r l|r l}
