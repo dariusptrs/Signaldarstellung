@@ -445,9 +445,9 @@
 	Mit DGL N-ter Ordnung und mit konstanten Koeffizienten
 	\[\sum\limits_{l = 0}^{N}{a_l \frac{\diff^l}{\diff t^l} y(t)} = \sum\limits_{m = 0}^{M}{b_m \frac{\diff^m}{\diff t^m} x(t)}\]
 	\[\Rightarrow \boxed{H(\omega) = \frac{Y(\omega)}{X(\omega)} = \frac{\sum\limits_{m = 0}^{M}{(j\omega)^m b_m}}{\sum\limits_{l = 0}^{N}{(j\omega)^l a_l}}}\]
-	\emph{Begründung:} $\rightarrow$ S. 53\\
-	\emph{Darstellung in Bode-Diagramm:} Beispiel $\rightarrow$ S.54 -- 55\\
-	\emph{Begriffe der Filtertechnik:} $\rightarrow$ S.51 -- 52
+	\emph{Begründung:} $\rightarrow$ S. 44\\
+	\emph{Darstellung in Bode-Diagramm:} Beispiel $\rightarrow$ S.48 -- 49\\
+	\emph{Begriffe der Filtertechnik:} $\rightarrow$ S.45 -- 46
 %	\\
 %	Rampe: $t \cdot \theta(t)$ und Rampenantwort\\
 \end{sectionbox}
@@ -468,15 +468,15 @@ $\boxed{x[n] = \frac{1}{2 \pi}\int\limits_{\bs{2 \pi}}{X(\Omega) e^{\j \Omega n}
 $\boxed{X(\Omega) = \sum\limits_{n = -\infty}^{\infty}{x[n] e^{-\j \Omega n}}}$ \hfill Analyse\\
 Es gilt: $\ul{X(\Omega) = X(\Omega + 2 \pi)}$
 
-	\subsection*{Parsevalsches Theorem $\rightarrow$ S. 58}
+	\subsection*{Parsevalsches Theorem $\rightarrow$ S. 52}
 	Energie: $E_x = \sum\limits_{n = -\infty}^{\infty}{\abs{x[n]}^2} = \frac{1}{2 \pi}\int\limits_{2 \pi}{\abs{X(\Omega)}^2 \diff \Omega}$
 	
 	\subsection*{Eigenschaften der ZDFT}
 	Symmetrie, Verschiebung, Faltung, etc.\\
-	$\rightarrow$ S. 60
+	$\rightarrow$ S. 54
 	
 	\subsection*{Wichtige ZDFT-Paare}
-	$\rightarrow$ S. 62
+	$\rightarrow$ S. 56
 	
 	\subsection*{Übertragungsfunktion der ZDFT}
 	$y[n] = x[n] \ast h[n] \stackrel{\mathcal{F}}{\longleftrightarrow} Y(\Omega) = H(\Omega) X(\Omega)$\\
@@ -484,7 +484,7 @@ Es gilt: $\ul{X(\Omega) = X(\Omega + 2 \pi)}$
 	Mit linearer Differenzengleichung N-ter Ordnung:
 	\[\sum\limits_{l=0}^{N}{a_l y[n - l]} = \sum\limits_{m = 0}^{M}{b_m x[n - m]}\]
 	\[\Rightarrow \boxed{H(\Omega) = \frac{Y(\Omega)}{X(\Omega)} = \frac{\sum\limits_{l=0}^{M}{b_l e^{-\j\Omega l}}}{\sum\limits_{l=0}^{N}{a_l e^{-\j\Omega l}}}}\]
-	\emph{Begründung} $\rightarrow$ S. 67
+	\emph{Begründung} $\rightarrow$ S. 57
 	
 	\end{sectionbox}
 % ==============================================================================================================
